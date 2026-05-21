@@ -1,11 +1,24 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
+@property --heaven-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(212, 175, 55, 0.12);
+}
+@property --death-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgba(58, 28, 93, 0.4);
+}
+
 /* Color Variables & Design Tokens */
 :root {
   --bg-base: #0a080d; /* Deep obsidian violet */
-  --bg-gradient-heaven: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 50%); /* Warm gold glow */
-  --bg-gradient-death: radial-gradient(circle at 20% 80%, rgba(58, 28, 93, 0.4) 0%, transparent 60%); /* Melancholy deep violet */
+  --heaven-color: rgba(212, 175, 55, 0.12);
+  --death-color: rgba(58, 28, 93, 0.4);
+  --bg-gradient-heaven: radial-gradient(circle at 80% 20%, var(--heaven-color) 0%, transparent 50%); /* Warm gold glow */
+  --bg-gradient-death: radial-gradient(circle at 20% 80%, var(--death-color) 0%, transparent 60%); /* Melancholy deep violet */
   
   --color-gold: #e2c974;
   --color-gold-hover: #f3e5ab;
@@ -43,6 +56,7 @@ body {
   overflow-x: hidden;
   position: relative;
   line-height: 1.6;
+  transition: --heaven-color 1.2s cubic-bezier(0.16, 1, 0.3, 1), --death-color 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Ambient Background Fades */
@@ -55,6 +69,7 @@ body::before, body::after {
   bottom: 0;
   pointer-events: none;
   z-index: -2;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body::before {
@@ -1222,5 +1237,241 @@ footer {
     flex-shrink: 0;
   }
 }
+
+/* ==========================================================================
+   5. Clue Theme Specific Body Background Glows & Phone Overlays
+   ========================================================================== */
+body[data-active-clue="sunset"] {
+  --heaven-color: rgba(230, 126, 34, 0.16);
+  --death-color: rgba(94, 28, 58, 0.45);
+}
+body[data-active-clue="music"] {
+  --heaven-color: rgba(52, 152, 219, 0.15);
+  --death-color: rgba(26, 82, 118, 0.45);
+}
+body[data-active-clue="text"] {
+  --heaven-color: rgba(231, 76, 60, 0.15);
+  --death-color: rgba(120, 40, 60, 0.45);
+}
+body[data-active-clue="screen"] {
+  --heaven-color: rgba(155, 89, 182, 0.18);
+  --death-color: rgba(44, 24, 76, 0.45);
+}
+
+/* Device Screen Interactive Overlays */
+.screen-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.glass-crack-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 12;
+  opacity: 0;
+  transition: opacity 1s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 640'%3E%3Cpath d='M300,640 L280,580 L250,540 L180,520 L150,470 L200,430 L220,380 L180,300 M250,540 L290,520 L350,530 M180,520 L130,530 L90,510 L50,530 M150,470 L110,440 L80,450 M200,430 L230,440 L270,410 L310,420 M220,380 L260,350 L310,360 L380,330' stroke='rgba(255,255,255,0.7)' stroke-width='1.2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: cover;
+}
+.glass-crack-overlay.active {
+  opacity: 0.35;
+}
+
+.music-equalizer-overlay {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: 36px;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.music-equalizer-overlay.active {
+  opacity: 0.65;
+}
+.music-bar {
+  width: 4px;
+  height: 100%;
+  background-color: var(--color-gold);
+  border-radius: 2px;
+  transform-origin: bottom;
+  animation: bounceBar 1.2s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.music-equalizer-overlay.active .music-bar {
+  animation-play-state: running;
+}
+.music-bar:nth-child(2) { animation-delay: 0.2s; animation-duration: 0.8s; }
+.music-bar:nth-child(3) { animation-delay: 0.4s; animation-duration: 1.4s; }
+.music-bar:nth-child(4) { animation-delay: 0.1s; animation-duration: 1.0s; }
+
+@keyframes bounceBar {
+  0% { transform: scaleY(0.15); }
+  100% { transform: scaleY(0.9); }
+}
+
+.sunset-sunflare-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  background: radial-gradient(circle at 75% 25%, rgba(243, 156, 18, 0.2) 0%, rgba(226, 201, 116, 0.05) 30%, transparent 65%);
+  mix-blend-mode: screen;
+  animation: pulseSunset 6s ease-in-out infinite alternate;
+}
+.sunset-sunflare-overlay.active {
+  opacity: 1;
+}
+
+@keyframes pulseSunset {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(-10px, 10px); }
+}
+
+.text-envelope-overlay {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 1.3rem;
+  color: var(--color-gold);
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  animation: floatEnvelope 2.5s infinite ease-in-out;
+  text-shadow: 0 0 10px var(--color-gold-glow);
+}
+.text-envelope-overlay.active {
+  opacity: 0.75;
+}
+
+@keyframes floatEnvelope {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.1); }
+}
+
+/* Custom Premium Modal Animations */
+.modal-overlay {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-card {
+  transform: scale(0.9) translateY(15px);
+  transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.45s ease;
+  opacity: 0;
+}
+.modal-overlay.active .modal-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Custom Success Overlay for Feedback form */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 8, 13, 0.9);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.success-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.success-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  transform: scale(0.85);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+.success-overlay.active .success-card {
+  transform: scale(1);
+}
+.success-icon-anim {
+  font-size: 3rem;
+  color: var(--color-gold);
+  margin-bottom: 1.5rem;
+  animation: bounceAnim 2s infinite ease-in-out;
+}
+@keyframes bounceAnim {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Skip/Fastforward visual indicator */
+.skip-indicator {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  animation: pulseSkip 1.5s infinite;
+  display: none;
+}
+.skip-indicator.active {
+  display: block;
+}
+@keyframes pulseSkip {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Sound indicator widget on header buttons */
+#music-toggle-btn {
+  position: relative;
+}
+#music-toggle-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  display: none;
+}
+#music-toggle-btn.playing::after {
+  display: block;
+  animation: pulseGlow 1.5s infinite;
+}
+
 
 

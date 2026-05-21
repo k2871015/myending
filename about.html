@@ -86,7 +86,7 @@
           에테리우스의 디자인 톤앤매너는 <strong>'어둠 속에서 새어 나오는 따스함'</strong>을 지향합니다. 죽음을 상징하는 차가운 흑자색(Obsidian Slate)과 천국의 환희를 나타내는 포근한 금빛(Warm Gold)의 조화를 통해 슬픔 속에서 승화되는 마음의 평안을 표현하고자 했습니다. 
         </p>
         <p>
-          오른쪽 위의 사운드 토글을 켜면, 브라우저가 직접 실시간으로 합성해 내는 앰비언트 사운드를 들으실 수 있습니다. A2(110Hz)와 E3(165Hz)의 따뜻한 완전5도 화음과 미세한 로우패스 필터 스윕은 우주의 심연이나 평화로운 안식처를 떠올리게 하며, 텍스트가 타이핑되는 순간 당신의 마음을 평온하게 채워줄 것입니다.
+          오른쪽 위의 사운드 토글을 켜면, 브라우저가 직접 실시간으로 합성해 내는 앰비언트 사운드를 들으실 수 있습니다. Am9 - Fmaj7 - G6 - Cmaj7으로 이어지는 아름답고 평화로운 4코드 진행과 미세한 로우패스 필터 스윕은 우주의 심연이나 평화로운 안식처를 떠올리게 하며, 텍스트가 타이핑되는 순간 당신의 마음을 평온하게 채워줄 것입니다.
         </p>
       </div>
 
@@ -143,39 +143,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- API Key Configuration Modal (Shared logic) -->
-  <div class="modal-overlay" id="api-key-modal">
-    <div class="modal-card">
-      <h2>Gemini API 연결</h2>
-      <p>
-        기어에 인공지능 영혼을 불어넣기 위해 Google Gemini API 키가 필요합니다.<br>
-        입력하신 API 키는 서버에 절대로 전송되거나 저장되지 않으며, 오직 귀하의 <strong>브라우저 로컬 저장소(localStorage)</strong>에만 암호화된 상태로 머물며 구글 서버와 직접 통신합니다.
-      </p>
-      
-      <div class="setting-panel" style="border: none; margin: 0; padding: 0;">
-        <div class="form-group">
-          <div class="input-label">
-            <span>Gemini API Key</span>
-            <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">무료 API 키 발급받기 ↗</a>
-          </div>
-          <input type="password" id="api-key-input" class="text-input" placeholder="AIzaSy..." autocomplete="off">
-        </div>
-        <div class="form-group" style="margin-top: 1rem;">
-          <div class="input-label">
-            <span>카카오톡 JS Key</span>
-            <a href="https://developers.kakao.com/" target="_blank" rel="noopener noreferrer">키 발급받기 ↗</a>
-          </div>
-          <input type="text" id="kakao-key-input" class="text-input" placeholder="JavaScript 키 입력" autocomplete="off">
-        </div>
-      </div>
-      
-      <div class="modal-actions">
-        <button class="btn-secondary" id="close-modal-btn">취소</button>
-        <button class="btn-primary" id="save-key-btn">저장 및 연결</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Kakao SDK -->
   <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>

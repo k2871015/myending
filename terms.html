@@ -111,39 +111,6 @@
     </div>
   </footer>
 
-  <!-- API Key Configuration Modal -->
-  <div class="modal-overlay" id="api-key-modal">
-    <div class="modal-card">
-      <h2>Gemini API 연결</h2>
-      <p>
-        기어에 인공지능 영혼을 불어넣기 위해 Google Gemini API 키가 필요합니다.<br>
-        입력하신 API 키는 서버에 절대로 전송되거나 저장되지 않으며, 오직 귀하의 <strong>브라우저 로컬 저장소(localStorage)</strong>에만 암호화된 상태로 머물며 구글 서버와 직접 통신합니다.
-      </p>
-      
-      <div class="setting-panel" style="border: none; margin: 0; padding: 0;">
-        <div class="form-group">
-          <div class="input-label">
-            <span>Gemini API Key</span>
-            <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">무료 API 키 발급받기 ↗</a>
-          </div>
-          <input type="password" id="api-key-input" class="text-input" placeholder="AIzaSy..." autocomplete="off">
-        </div>
-        <div class="form-group" style="margin-top: 1rem;">
-          <div class="input-label">
-            <span>카카오톡 JS Key</span>
-            <a href="https://developers.kakao.com/" target="_blank" rel="noopener noreferrer">키 발급받기 ↗</a>
-          </div>
-          <input type="text" id="kakao-key-input" class="text-input" placeholder="JavaScript 키 입력" autocomplete="off">
-        </div>
-      </div>
-      
-      <div class="modal-actions">
-        <button class="btn-secondary" id="close-modal-btn">취소</button>
-        <button class="btn-primary" id="save-key-btn">저장 및 연결</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Kakao SDK -->
   <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
   <script src="app.js"></script>

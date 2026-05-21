@@ -174,8 +174,102 @@ const mockResponses = {
 상처 가득한 이 휴대폰({phone})을 가만히 쥐고 있는 당신에게 그가 남긴 마음을 들려줍니다. 부서진 틈새 사이로 더 밝은 달빛이 스며들 듯, 당신이 겪은 아픔들 역시 아름다운 빛으로 다시 피어날 것입니다.`
   ]
 };
+// Sound indicators & generative chords helper constants
+const chords = [
+  { bass: 55.00, pad: [110.00, 164.81, 196.00, 246.94] }, // Am9
+  { bass: 43.65, pad: [87.31, 130.81, 164.81, 220.00] },  // Fmaj7
+  { bass: 49.00, pad: [98.00, 146.83, 164.81, 196.00] },  // G6
+  { bass: 65.41, pad: [130.81, 164.81, 196.00, 246.94] }  // Cmaj7
+];
+
+function ensureApiModalExists() {
+  let modal = document.getElementById('api-key-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'api-key-modal';
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-card">
+        <h2>API 설정</h2>
+        <p>에테리우스의 AI 기능 활성화를 위해 개인 API 키를 입력해 주세요. 입력된 키는 오직 브라우저 로컬 저장소(localStorage)에만 안전하게 보관되며 외부 서버로 절대 전송되지 않습니다.</p>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label class="input-label" for="api-key-input">Gemini API Key</label>
+          <input type="password" id="api-key-input" class="text-input" placeholder="AI 응답 생성을 위한 Gemini API 키 입력">
+        </div>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+          <label class="input-label" for="kakao-key-input">Kakao App Key (선택)</label>
+          <input type="text" id="kakao-key-input" class="text-input" placeholder="카카오톡 공유를 위한 JavaScript 키 입력">
+        </div>
+        <div class="modal-actions">
+          <button id="close-modal-btn" class="btn-secondary">닫기</button>
+          <button id="save-key-btn" class="btn-primary">저장하기</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+}
+
+function updateScreenOverlays(clue) {
+  const crack = document.getElementById('crack-overlay');
+  const equalizer = document.getElementById('equalizer-overlay');
+  const sunset = document.getElementById('sunset-overlay');
+  const envelope = document.getElementById('envelope-overlay');
+
+  if (crack) crack.classList.toggle('active', clue === 'screen');
+  if (equalizer) equalizer.classList.toggle('active', clue === 'music');
+  if (sunset) sunset.classList.toggle('active', clue === 'sunset');
+  if (envelope) envelope.classList.toggle('active', clue === 'text');
+}
+
+function playTypewriterTick() {
+  if (!isPlayingAmbient || !audioCtx) return;
+  try {
+    const t = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1400, t);
+    osc.frequency.exponentialRampToValueAtTime(120, t + 0.03);
+    
+    gain.gain.setValueAtTime(0.012, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(t);
+    osc.stop(t + 0.04);
+  } catch (e) {
+    // Ignore
+  }
+}
+
+function playChirpSound(freq = 600, dur = 0.08) {
+  if (!isPlayingAmbient || !audioCtx) return;
+  try {
+    const t = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, t);
+    osc.frequency.exponentialRampToValueAtTime(freq * 1.4, t + dur);
+    
+    gain.gain.setValueAtTime(0.018, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(t);
+    osc.stop(t + dur + 0.01);
+  } catch (e) {
+    // Ignore
+  }
+}
 
 function initRelicApp() {
+  ensureApiModalExists();
   // Modal key elements
   const keyModal = document.getElementById('api-key-modal');
   const openModalBtn = document.getElementById('open-modal-btn');
@@ -245,6 +339,7 @@ function initSetupScreen() {
   const startBtn = document.getElementById('start-btn');
   if (startBtn) {
     startBtn.addEventListener('click', () => {
+      playChirpSound(600, 0.12);
       const nameInput = document.getElementById('owner-name-input');
       const phoneInput = document.getElementById('owner-phone-input');
       const relationshipInput = document.getElementById('relationship-input');
@@ -333,14 +428,28 @@ function renderClueSelection() {
       selectClues.forEach(c => c.classList.remove('selected'));
       clue.classList.add('selected');
       selectedClue = clue.getAttribute('data-clue');
+      
+      // Update body theme and device overlays
+      document.body.setAttribute('data-active-clue', selectedClue);
+      updateScreenOverlays(selectedClue);
+      
+      // Play chirp sound
+      playChirpSound(800, 0.1);
     });
   });
 
   // Re-bind action button
   const actionBtn = screenContainer.querySelector('#action-btn');
   if (actionBtn) {
-    actionBtn.addEventListener('click', activateRelic);
+    actionBtn.addEventListener('click', () => {
+      playChirpSound(650, 0.15);
+      activateRelic();
+    });
   }
+
+  // Sync initial overlay and theme attributes on render
+  document.body.setAttribute('data-active-clue', selectedClue);
+  updateScreenOverlays(selectedClue);
 }
 
 function updateKeyButtonUI(hasKey) {
@@ -482,7 +591,7 @@ function renderResultScreen(text, imageName) {
   currentResultImage = imageName || `relic_${selectedClue}.png`;
 
   screenContainer.innerHTML = `
-    <div class="response-state animate-fade-in">
+    <div class="response-state animate-fade-in" id="response-state-wrapper" style="cursor: pointer;">
       <div class="response-scroll">
         <!-- Polaroid Memory Film Card -->
         <div class="memory-film-card">
@@ -517,6 +626,9 @@ function renderResultScreen(text, imageName) {
         </div>
       </div>
       
+      <!-- Skip/Fastforward visual indicator -->
+      <div class="skip-indicator">⚡ 화면을 터치하면 타이핑이 건너뛰어집니다.</div>
+      
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         <button class="action-btn" id="open-letter-btn" style="background: linear-gradient(135deg, #4a1525 0%, #290812 100%); border-color: rgba(231, 76, 60, 0.4); color: #f5f6fa; margin-top: 0.5rem;">
           ✉️ 마지막 편지 확인하기
@@ -537,10 +649,26 @@ function renderResultScreen(text, imageName) {
     typeWriterEffect(responseBubble, text);
   }
 
+  // Bind skip clicking on response state wrapper
+  const wrapper = document.getElementById('response-state-wrapper');
+  if (wrapper) {
+    wrapper.addEventListener('click', (e) => {
+      // Don't trigger skip if they click on inputs, buttons, links, or inside forms
+      if (e.target.closest('button') || e.target.closest('input') || e.target.closest('form') || e.target.closest('a')) {
+        return;
+      }
+      const activeTypingEl = wrapper.querySelector('[data-is-typing="true"]');
+      if (activeTypingEl) {
+        activeTypingEl.dataset.skipTyping = 'true';
+      }
+    });
+  }
+
   // Bind Open Letter button
   const openLetterBtn = document.getElementById('open-letter-btn');
   if (openLetterBtn) {
     openLetterBtn.addEventListener('click', async () => {
+      playChirpSound(700, 0.15);
       openLetterBtn.style.display = 'none';
       const lastLetterSection = document.getElementById('last-letter-section');
       if (lastLetterSection) {
@@ -574,13 +702,19 @@ function renderResultScreen(text, imageName) {
   // Bind Share button
   const shareBtn = document.getElementById('share-btn');
   if (shareBtn) {
-    shareBtn.addEventListener('click', shareViaKakao);
+    shareBtn.addEventListener('click', () => {
+      playChirpSound(800, 0.1);
+      shareViaKakao();
+    });
   }
 
   // Bind Reset button
   const resetBtn = document.getElementById('reset-btn');
   if (resetBtn) {
-    resetBtn.addEventListener('click', resetRelicUI);
+    resetBtn.addEventListener('click', () => {
+      playChirpSound(450, 0.18);
+      resetRelicUI();
+    });
   }
 
   // Bind Subscription Form
@@ -588,6 +722,7 @@ function renderResultScreen(text, imageName) {
   if (subForm) {
     subForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      playChirpSound(750, 0.1);
       const emailInput = document.getElementById('subscriber-email');
       const emailVal = emailInput ? emailInput.value.trim() : '';
       
@@ -630,6 +765,10 @@ function resetRelicUI() {
   relationship = 'stranger';
   finderName = '';
   selectedClue = 'sunset';
+
+  // Reset body theme and device overlays
+  document.body.removeAttribute('data-active-clue');
+  updateScreenOverlays(null);
   
   // Re-render initial setup state
   screenContainer.innerHTML = `
@@ -804,10 +943,12 @@ Guidelines:
   return data.candidates[0].content.parts[0].text;
 }
 
-// Typing effect helper
+// Typing effect helper with skip capability
 function typeWriterEffect(element, text, callback) {
   let index = 0;
   element.innerHTML = '';
+  element.dataset.isTyping = 'true';
+  element.dataset.skipTyping = 'false';
   
   // Create a container for text and cursor
   const textContainer = document.createElement('span');
@@ -821,11 +962,35 @@ function typeWriterEffect(element, text, callback) {
   const minInterval = 20;
   const maxInterval = 50;
 
+  // Show skip indicator if appropriate
+  const skipIndicator = document.querySelector('.skip-indicator');
+  if (skipIndicator) {
+    skipIndicator.classList.add('active');
+  }
+
   function type() {
+    if (element.dataset.skipTyping === 'true') {
+      textContainer.textContent = text;
+      cursor.remove();
+      element.dataset.isTyping = 'false';
+      if (skipIndicator) {
+        skipIndicator.classList.remove('active');
+      }
+      const scrollParent = element.closest('.response-scroll');
+      if (scrollParent) {
+        scrollParent.scrollTop = scrollParent.scrollHeight;
+      }
+      if (callback) callback();
+      return;
+    }
+
     if (index < text.length) {
       // Append character-by-character
       textContainer.textContent += text.charAt(index);
       index++;
+      
+      // Play tick sound
+      playTypewriterTick();
       
       // Dynamic speed adjustment for human-like typing
       const char = text.charAt(index - 1);
@@ -847,6 +1012,10 @@ function typeWriterEffect(element, text, callback) {
       }
     } else {
       cursor.remove();
+      element.dataset.isTyping = 'false';
+      if (skipIndicator) {
+        skipIndicator.classList.remove('active');
+      }
       if (callback) callback();
     }
   }
@@ -869,11 +1038,13 @@ function initAmbientSynth() {
     if (!isPlayingAmbient) {
       startAmbientSynth();
       musicBtn.innerHTML = `🎵 사운드 켬`;
+      musicBtn.classList.add('playing');
       musicBtn.style.background = 'rgba(226, 201, 116, 0.15)';
       isPlayingAmbient = true;
     } else {
       stopAmbientSynth();
       musicBtn.innerHTML = `🔇 사운드 끔`;
+      musicBtn.classList.remove('playing');
       musicBtn.style.background = 'transparent';
       isPlayingAmbient = false;
     }
@@ -900,25 +1071,33 @@ function startAmbientSynth() {
     filter.connect(masterGain);
     masterGain.connect(audioCtx.destination);
 
-    // Osc 1: Root Tone A2 (110Hz)
-    const osc1 = audioCtx.createOscillator();
-    osc1.type = 'sine';
-    osc1.frequency.value = 110;
-    
-    const gain1 = audioCtx.createGain();
-    gain1.gain.value = 0.5;
-    osc1.connect(gain1);
-    gain1.connect(filter);
+    // Bass Oscillator: deep and warm
+    const bassOsc = audioCtx.createOscillator();
+    bassOsc.type = 'triangle';
+    const bassGain = audioCtx.createGain();
+    bassGain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+    bassOsc.connect(bassGain);
+    bassGain.connect(filter);
 
-    // Osc 2: Warm Fifth E3 (165Hz)
-    const osc2 = audioCtx.createOscillator();
-    osc2.type = 'triangle';
-    osc2.frequency.value = 164.81; // E3
-    
-    const gain2 = audioCtx.createGain();
-    gain2.gain.value = 0.3;
-    osc2.connect(gain2);
-    gain2.connect(filter);
+    // Pad Oscillators for chords
+    const padOscs = [];
+    const padGains = [];
+    for (let i = 0; i < 4; i++) {
+      const osc = audioCtx.createOscillator();
+      osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      osc.connect(gain);
+      gain.connect(filter);
+      padOscs.push(osc);
+      padGains.push(gain);
+    }
+
+    // Set initial frequencies (Am9)
+    bassOsc.frequency.setValueAtTime(chords[0].bass, audioCtx.currentTime);
+    for (let i = 0; i < 4; i++) {
+      padOscs[i].frequency.setValueAtTime(chords[0].pad[i], audioCtx.currentTime);
+    }
 
     // Soft filter sweep lfo
     const lfo = audioCtx.createOscillator();
@@ -930,12 +1109,30 @@ function startAmbientSynth() {
     lfo.connect(lfoGain);
     lfoGain.connect(filter.frequency);
 
-    // Start everything
-    osc1.start(0);
-    osc2.start(0);
+    // Start all oscillators
+    bassOsc.start(0);
+    padOscs.forEach(osc => osc.start(0));
     lfo.start(0);
 
-    soundNodes = { osc1, osc2, lfo, masterGain, audioCtx };
+    // Chord progression scheduler (runs every 8 seconds)
+    let chordIndex = 0;
+    const chordInterval = setInterval(() => {
+      if (!audioCtx || audioCtx.state === 'closed') {
+        clearInterval(chordInterval);
+        return;
+      }
+      chordIndex = (chordIndex + 1) % chords.length;
+      const currentChord = chords[chordIndex];
+      const t = audioCtx.currentTime;
+      
+      // Smoothly ramp frequencies over 3 seconds for beautiful chord morphing
+      bassOsc.frequency.exponentialRampToValueAtTime(currentChord.bass, t + 3);
+      for (let i = 0; i < 4; i++) {
+        padOscs[i].frequency.exponentialRampToValueAtTime(currentChord.pad[i], t + 3);
+      }
+    }, 8000);
+
+    soundNodes = { bassOsc, padOscs, lfo, masterGain, audioCtx, chordInterval };
   } catch (e) {
     console.error('Failed to initialize Web Audio:', e);
   }
@@ -943,17 +1140,24 @@ function startAmbientSynth() {
 
 function stopAmbientSynth() {
   if (soundNodes) {
-    const { osc1, osc2, lfo, masterGain, audioCtx } = soundNodes;
+    const { bassOsc, padOscs, lfo, masterGain, audioCtx, chordInterval } = soundNodes;
+    if (chordInterval) {
+      clearInterval(chordInterval);
+    }
     try {
       masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
       masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
       masterGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 1.5); // Soft fade out
       
       setTimeout(() => {
-        osc1.stop();
-        osc2.stop();
-        lfo.stop();
-        audioCtx.close();
+        try {
+          bassOsc.stop();
+          padOscs.forEach(osc => osc.stop());
+          lfo.stop();
+          audioCtx.close();
+        } catch (err) {
+          console.error(err);
+        }
       }, 1600);
     } catch (e) {
       console.error(e);
@@ -1053,6 +1257,7 @@ function initCookieConsent() {
   const acceptBtn = document.getElementById('cookie-accept-btn');
   if (acceptBtn) {
     acceptBtn.addEventListener('click', () => {
+      playChirpSound(750, 0.08);
       localStorage.setItem(CONSENT_KEY, 'true');
       banner.classList.remove('show');
       setTimeout(() => {
