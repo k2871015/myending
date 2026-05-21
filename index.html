@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherius | 에테리우스 - 디지털 유품 기억 복원기</title>
+  <meta name="description" content="세상을 떠난 이의 남겨진 휴대폰 단서를 통해 그들의 마음과 흔적을 느끼고 복원해 봅니다. 감성 AI 기반의 디지털 유품 추모 시뮬레이터.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Google AdSense Code Placeholder (For Verification) -->
+  <!-- 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+</head>
+<body>
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles-js"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"></span>
+        AETHERIUS
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">기억 복원</a></li>
+          <li><a href="about.html">소개</a></li>
+          <li><a href="contact.html">문의</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <button class="icon-btn" id="music-toggle-btn">🔇 사운드 끔</button>
+        <button class="icon-btn" id="open-modal-btn">⚙️ API 키 입력</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Hero / Relic Simulator Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <div class="subtitle-badge">
+          <span>✧</span> Digital Relic Simulator
+        </div>
+        <h1>떠난 이의 흔적이<br>머무는 따스한 기억</h1>
+        <p>
+          주인을 잃은 오래된 휴대폰을 열어봅니다. 그 안에는 노을 사진, 즐겨 듣던 음악, 미처 전송하지 못한 문자 같은 작은 삶의 잔상들이 흩어져 있습니다.<br><br>
+          이 휴대폰의 주인을 아는 유일한 존재인 기기 속 AI companion이 그가 어떤 사람이었는지, 어떤 따뜻한 삶을 지켜왔는지 나지막하게 속삭여 드립니다.
+        </p>
+        
+        <!-- Ad Slot inside Main Section -->
+        <div class="adsense-slot">
+          <!-- Responsive Ad Unit Placeholder -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="YYYYYYYYYY"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+
+      <!-- Relic Device Container -->
+      <div class="relic-container">
+        <div class="device-frame">
+          <div class="device-header">
+            <div class="device-status">
+              <span class="signal-dot"></span>
+              AETHERIUS NETWORK
+            </div>
+            <div class="device-status" style="font-size: 0.7rem;">
+              MEM-RESTORER V1.0
+            </div>
+          </div>
+          
+          <div class="device-screen" id="screen-container">
+            <!-- Setup State: Owner Identity Input -->
+            <div class="screen-state" id="setup-state">
+              <div class="intro-content">
+                <div class="device-icon-wrapper">
+                  <span class="relic-icon">❊</span>
+                </div>
+                <h3>기록 인식</h3>
+                <p class="desc">
+                  기억을 복원하기 위해 기기 소유자의 이름과 전화번호를 입력해 주세요.
+                </p>
+                
+                <div class="setting-panel" style="border: none; margin: 1rem 0 0 0; padding: 0; width: 100%;">
+                  <div class="form-group">
+                    <div class="input-label">소유자 이름</div>
+                    <input type="text" id="owner-name-input" class="text-input" placeholder="예: 김철수" autocomplete="off" required>
+                  </div>
+                  <div class="form-group" style="margin-top: 1rem;">
+                    <div class="input-label">전화번호</div>
+                    <input type="tel" id="owner-phone-input" class="text-input" placeholder="예: 010-1234-5678" autocomplete="off" required>
+                  </div>
+                </div>
+              </div>
+              
+              <button class="action-btn" id="start-btn">
+                기기 접속하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Cards Section -->
+    <section>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <div class="card-num">01</div>
+          <h3>흔적의 흔들림</h3>
+          <p>
+            우리가 디지털 기기에 남기는 일상은 사소하지만 진실한 삶의 궤적입니다. 흘러간 손때가 묻은 데이터를 바탕으로 따뜻했던 온기를 수집합니다.
+          </p>
+        </div>
+        <div class="intro-card">
+          <div class="card-num">02</div>
+          <h3>감성 동조 AI</h3>
+          <p>
+            Gemini 1.5 Flash API와 동조하여 단서에 담긴 은유를 풀어냅니다. 차가운 텍스트에서 그리운 목소리를 피어내는 문학적인 서사를 직조합니다.
+          </p>
+        </div>
+        <div class="intro-card">
+          <div class="card-num">03</div>
+          <h3>소리 없는 위로</h3>
+          <p>
+            헤븐 앤 데스 톤의 배경 페이드와 Web Audio API로 실시간 합성되는 앰비언트 사운드는 당신의 마음을 부드럽게 감싸 안는 공간을 선사합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Ad Slot -->
+    <div class="adsense-slot">
+      <!-- Responsive Ad Unit Placeholder -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="ZZZZZZZZZZ"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="padding: 0;">
+            <span class="logo-icon"></span>
+            AETHERIUS
+          </a>
+          <p>에테리우스는 떠난 이들의 남겨진 흔적을 기억하고, 남겨진 이들에게 온기 가득한 위로를 전하는 감성 디지털 유품 추모 공간입니다.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>기억 공간</h4>
+            <ul>
+              <li><a href="index.html">기억 복원기</a></li>
+              <li><a href="about.html">프로젝트 소개</a></li>
+              <li><a href="contact.html">문의하기</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>약관 및 정책</h4>
+            <ul>
+              <li><a href="privacy.html">개인정보처리방침</a></li>
+              <li><a href="terms.html">이용약관</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aetherius. All rights reserved.</p>
+        <p>본 사이트는 Google AdSense 약관을 준수하며, 사용자 정보 보안과 투명성을 보장합니다.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- API Key Configuration Modal -->
+  <div class="modal-overlay" id="api-key-modal">
+    <div class="modal-card">
+      <h2>Gemini API 연결</h2>
+      <p>
+        기어에 인공지능 영혼을 불어넣기 위해 Google Gemini API 키가 필요합니다.<br>
+        입력하신 API 키는 서버에 절대로 전송되거나 저장되지 않으며, 오직 귀하의 <strong>브라우저 로컬 저장소(localStorage)</strong>에만 암호화된 상태로 머물며 구글 서버와 직접 통신합니다.
+      </p>
+      
+      <div class="setting-panel" style="border: none; margin: 0; padding: 0;">
+        <div class="form-group">
+          <div class="input-label">
+            <span>Gemini API Key</span>
+            <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">무료 API 키 발급받기 ↗</a>
+          </div>
+          <input type="password" id="api-key-input" class="text-input" placeholder="AIzaSy..." autocomplete="off">
+        </div>
+        <div class="form-group" style="margin-top: 1rem;">
+          <div class="input-label">
+            <span>카카오톡 JS Key</span>
+            <a href="https://developers.kakao.com/" target="_blank" rel="noopener noreferrer">키 발급받기 ↗</a>
+          </div>
+          <input type="text" id="kakao-key-input" class="text-input" placeholder="JavaScript 키 입력" autocomplete="off">
+        </div>
+      </div>
+      
+      <p style="font-size: 0.75rem; color: var(--color-text-muted);">
+        * API 키가 없는 경우, 기본으로 준비된 기억(시뮬레이션 모드)이 실행됩니다.
+      </p>
+      
+      <div class="modal-actions">
+        <button class="btn-secondary" id="close-modal-btn">취소</button>
+        <button class="btn-primary" id="save-key-btn">저장 및 연결</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
+  <!-- JavaScript Bundle -->
+  <script src="app.js"></script>
+</body>
+</html>
+
