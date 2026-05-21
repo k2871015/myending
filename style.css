@@ -719,6 +719,15 @@ main {
   transition: var(--transition-smooth);
 }
 
+.text-input option {
+  background-color: #141022;
+  color: #f5f4f6;
+}
+
+select.text-input {
+  color: var(--color-text-primary);
+}
+
 .text-input:focus {
   border-color: rgba(226, 201, 116, 0.4);
   background: rgba(255, 255, 255, 0.04);
