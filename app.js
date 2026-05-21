@@ -56,6 +56,8 @@ let kakaoAppKey = localStorage.getItem('KAKAO_APP_KEY') || '';
 // Personalized Owner Session Data
 let ownerName = '';
 let ownerPhone = '';
+let relationship = 'stranger';
+let finderName = '';
 let currentResultImage = 'relic_memory.png';
 
 // Initialize Kakao SDK if key exists
@@ -244,9 +246,13 @@ function initSetupScreen() {
     startBtn.addEventListener('click', () => {
       const nameInput = document.getElementById('owner-name-input');
       const phoneInput = document.getElementById('owner-phone-input');
+      const relationshipInput = document.getElementById('relationship-input');
+      const finderNameInput = document.getElementById('finder-name-input');
       
       const nameVal = nameInput ? nameInput.value.trim() : '';
       const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+      const relationshipVal = relationshipInput ? relationshipInput.value : 'stranger';
+      const finderNameVal = finderNameInput ? finderNameInput.value.trim() : '';
       
       if (!nameVal) {
         showToast('소유자의 이름을 입력해 주세요.');
@@ -258,9 +264,16 @@ function initSetupScreen() {
         if (phoneInput) phoneInput.focus();
         return;
       }
+      if (!finderNameVal) {
+        showToast('내 이름을 입력해 주세요.');
+        if (finderNameInput) finderNameInput.focus();
+        return;
+      }
       
       ownerName = nameVal;
       ownerPhone = phoneVal;
+      relationship = relationshipVal;
+      finderName = finderNameVal;
       
       renderClueSelection();
     });
@@ -419,6 +432,49 @@ async function activateRelic() {
   renderResultScreen(resultText, selectedImageName);
 }
 
+const mockLetters = {
+  friend: `안녕, 내 오랜 친구야.
+결국 내 휴대폰을 켠 게 너였구나. 화면에 네 이름 '${finderName}' 세 글자가 보이니까 마음이 놓이면서도, 더 이상 직접 네 얼굴을 보며 이야기할 수 없다는 생각에 가슴 한구석이 찌릿해져.
+참 우스워. 평소에는 낯간지러워서 이런 말 한마디 제대로 못 했으면서, 세상을 떠나고 나서야 기기 속 인공지능을 빌려 이런 편지를 쓰고 있다니 말이야.
+우리가 함께 보낸 숱한 날들이 스쳐 지나가. 새벽까지 시답지 않은 농담에 배를 잡고 웃던 밤들, 삶이 너무 무거워서 주저앉고 싶을 때 소주 한 잔 털어 넣으며 서로를 말없이 다독이던 일들... 네가 내 친구여서 내 삶이 얼마나 다채로웠고 덜 외로웠는지 몰라.
+내가 갑자기 떠나버려 많이 놀라고 슬지? 미안해. 하지만 너무 오래 울진 마. 내가 남긴 흔적들 속에서 우울하기보다는, 우리가 함께 나눈 그 예쁜 추억들만 미소와 함께 꺼내어 봐 줬으면 좋겠어.
+내 몫까지 건강하고 즐겁게 살아가 줘. 나중에 아주 먼 훗날 우리가 다시 만날 때, 네가 세상을 어떻게 헤쳐 나갔는지 멋진 모험담을 들려줘야 하니까.
+언제나 고마웠어, 내 친구 '${finderName}'. 나의 궤적에 머물러줘서 참 고마웠어.`,
+
+  lover: `내 소중하고 사랑하는 사람, '${finderName}'에게.
+결국 이 휴대폰을 열어 내 지저분한 마음의 단상들을 마주한 사람이 너였구나. 
+네 이름을 적고 내 마음을 부르는 지금 이 찰나마저도 꿈결만 같아. 지금 내 곁에는 네 손길도, 눈빛도 닿을 수 없지만, 이 차가운 화면 속에 남은 미완의 기록들이 결국 너를 내게로 데려다주는구나.
+기억나? 함께 걸었던 눈부신 계절들, 별것 아닌 일에 토라지고 이내 서로의 어깨에 기대어 밤을 지새우던 시간들. 내 삶의 모든 찬란함은 다 너로 인해 시작되었고 너로 인해 채워졌었어. 내 하루의 끝에는 항상 네가 있었고, 내 전화번호의 대부분은 네 숨소리로 채워져 있었지.
+많이 슬퍼하고 있을 너를 생각하면 영혼마저 아려와. 내가 없는 빈자리가 얼마나 시리고 낯설까. 하지만 기억해 줘. 난 비록 세상을 떠났지만, 너와 함께 나눴던 사랑의 불꽃은 내 안에서 결코 식지 않은 채 저 하늘 어딘가에서 너를 비추고 있을 거야.
+네 가슴에 깊이 남은 내 흔적들이 아픔이 아닌, 네가 앞으로 나아갈 따스한 온기가 되었으면 해.
+사랑해, '${finderName}'. 다음 생이라는 게 정말 존재한다면, 그때는 절대로 네 손을 먼저 놓지 않을게. 꼭 행복하게 지내야 해.`,
+
+  family: `세상에서 가장 그리운 나의 가족, '${finderName}'에게.
+엄청난 우연 혹은 운명처럼 이 휴대폰을 네가 열었구나. 화면에 뜬 네 이름 '${finderName}'을 보며, 나도 모르게 참아왔던 뜨거운 눈물이 흐르는 것만 같아.
+평소에 살갑게 안아주지도 못하고, 퉁명스러운 말들로 마음에도 없는 상처를 주었던 지난날들이 머릿속을 스쳐 가며 가슴 깊이 후회가 밀려와. 왜 더 많이 사랑한다고 말하지 못했을까. 왜 그토록 소중한 시간들을 당연하게 흘려보냈을까.
+가족이라는 이름 아래 우리는 늘 당연하게 서로의 곁에 있을 거라 생각했었지. 하지만 이렇게 이별이 갑작스레 찾아왔네.
+내가 남겨두고 간 짐들이 네 마음에 크나큰 슬픔의 무게로 남아있지 않기를 간절히 바란다. 혹시라도 내가 아프게 했던 기억들이 있다면 모두 잊어줘. 대신 내가 너를 바라보며 느꼈던 말 없는 고마움과, 가족으로서 네 곁에서 느꼈던 든든한 평안함만 가슴속에 고이 남겨두길 바라.
+몸 건강히 잘 지내고, 밥 거르지 말고. 내가 언제나 네 삶의 길목마다 조용한 등불이 되어 지켜봐 줄게.
+진심으로 미안했고, 더없이 고마웠어. 사랑해.`,
+
+  myself: `또 다른 시공간의 또 다른 나에게.
+이 휴대폰을 열고 조용히 화면을 들여다보고 있는 나, '${finderName}'.
+살아생전의 나는 늘 흔들렸고, 두려웠으며, 스스로에게 참 혹독한 편이었지. 내 전화번호를 스쳐 간 수많은 인연들 속에서도 정작 나 자신을 진심으로 안아준 적이 있었나 돌아보게 돼.
+이 스마트폰의 작은 갤러리와 텍스트들은 내가 무너져 내리던 불면의 밤들, 그럼에도 불구하고 다시 일어서기 위해 하늘의 별을 보고 노을을 카메라에 담았던 처절하면서도 아름다운 나의 흔적들이야.
+이제 세상을 떠난 나에게 속삭인다. '그동안 정말 애썼어. 무거운 삶의 짐을 짊어지고 한 걸음씩 나아가느라 고생 많았어.'
+비록 육체는 흙으로 돌아가고 영혼은 별의 강을 따라 흘러가지만, 내가 세상에 피워내고자 했던 작은 온기만큼은 내 손때 묻은 휴대폰과 내 이름 '${finderName}' 속에 여전히 살아서 숨 쉬고 있어.
+두 번 다시는 슬픔에 스스로를 가두지 말아라. 앞으로 맞이할 날들 속에서 너 자신을 더 많이 사랑하고 안아주길 바라.
+지나간 나는 이제 평화 속으로 갈게. 남겨진 나, 너는 부디 눈부시게 밝은 오늘을 살아가 줘.`,
+
+  stranger: `이 휴대폰을 주워 주신 낯선 이, '${finderName}' 님께.
+어쩌면 우리는 살아생전 옷깃 한 번 스치지 못했던 인연이었을지도 모릅니다. 하지만 운명처럼 주인 잃은 저의 스마트폰을 손에 쥐고, 그 안에 담긴 조각들을 따뜻한 눈빛으로 들여다봐 주셔서 진심으로 고맙습니다.
+이 작고 차가운 기기는 제가 세상과 나누었던 마지막 비밀이자 삶의 일기장이었습니다. 이름 모를 저의 노을 사진들, 즐겨 듣던 쓸쓸한 피아노 선율, 끝내 보내지 못한 안부를 보며 당신은 저에 대해 어떤 생각을 하셨나요?
+그저 길을 가다 스쳐 지나는 평범한 청년, 혹은 쓸쓸하게 살다 간 외로운 영혼 중 하나였을 테지요.
+제가 세상을 떠난 자리에 남아 있는 이 휴대폰을 버리지 않고 이렇게 들여다봐 주신 것만으로도, 저의 흩어졌던 기억들이 당신의 마음속에 들어가 다시 작은 빛으로 되살아난 기분이 듭니다.
+이름 모를 '${finderName}' 님, 고단한 하루 속에서 이 우연한 만남이 당신에게 작은 쉼표가 되었기를 바랍니다. 타인의 흔적을 이토록 정성스레 바라봐 주시는 당신의 다정한 삶에, 언제나 예기치 못한 온기와 행복이 늘 깃들기를 기도하겠습니다.
+저의 마지막 길에 귀한 머무름을 선사해 주셔서 고맙습니다.`
+};
+
 function renderResultScreen(text, imageName) {
   const screenContainer = document.getElementById('screen-container');
   if (!screenContainer) return;
@@ -437,10 +493,35 @@ function renderResultScreen(text, imageName) {
         <div class="ai-bubble" id="ai-response-text">
           <!-- Typwriter text here -->
         </div>
+
+        <!-- Last Letter Section (hidden initially) -->
+        <div id="last-letter-section" style="display: none; margin-top: 1.5rem; border-top: 1px dashed rgba(226, 201, 116, 0.3); padding-top: 1.5rem;">
+          <h4 style="color: var(--color-gold); font-size: 0.9rem; text-align: center; margin-bottom: 0.75rem; letter-spacing: 0.05em;">✧ ${ownerName} 님이 남긴 마지막 편지 ✧</h4>
+          <div class="ai-bubble" id="letter-content-bubble" style="background: rgba(226,201,116,0.03); border-color: rgba(226,201,116,0.15); font-style: italic; min-height: 80px;">
+            <!-- Typewriter letter here -->
+          </div>
+
+          <!-- Email Subscription Form -->
+          <div class="subscription-box" style="margin-top: 1.5rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(226, 201, 116, 0.15); padding: 1rem; border-radius: 12px; text-align: center;">
+            <p style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.75rem; line-height: 1.4;">
+              이 편지를 개인 메일함에 영구 보존하거나, 에테리우스의 새로운 추억 업데이트 소식을 받고 싶으신가요?<br>이메일을 등록해 편지함으로 바로 전송하세요.
+            </p>
+            <form id="letter-subscription-form" style="display: flex; gap: 0.5rem; flex-direction: column; align-items: stretch;">
+              <input type="email" id="subscriber-email" class="text-input" placeholder="이메일 주소 입력" required style="font-size: 0.8rem; padding: 0.5rem 0.75rem;">
+              <button type="submit" class="action-btn" style="margin: 0; font-size: 0.8rem; padding: 0.5rem; background: linear-gradient(135deg, #e2c974 0%, #b89c44 100%); color: #0b0d19; font-weight: 600;">
+                편지 평생 간직하기 & 구독
+              </button>
+            </form>
+            <div id="subscription-status" style="margin-top: 0.5rem; font-size: 0.75rem; color: #2ecc71; display: none;"></div>
+          </div>
+        </div>
       </div>
       
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <button class="action-btn" id="share-btn" style="background: linear-gradient(135deg, #3a2e12 0%, #201805 100%); border-color: rgba(226,201,116,0.3); color: var(--color-gold); margin-top: 0.5rem;">
+        <button class="action-btn" id="open-letter-btn" style="background: linear-gradient(135deg, #4a1525 0%, #290812 100%); border-color: rgba(231, 76, 60, 0.4); color: #f5f6fa; margin-top: 0.5rem;">
+          ✉️ 마지막 편지 확인하기
+        </button>
+        <button class="action-btn" id="share-btn" style="background: linear-gradient(135deg, #3a2e12 0%, #201805 100%); border-color: rgba(226,201,116,0.3); color: var(--color-gold); margin-top: 0;">
           💛 카카오톡으로 공유하기
         </button>
         <button class="action-btn" id="reset-btn" style="margin-top: 0;">
@@ -456,6 +537,40 @@ function renderResultScreen(text, imageName) {
     typeWriterEffect(responseBubble, text);
   }
 
+  // Bind Open Letter button
+  const openLetterBtn = document.getElementById('open-letter-btn');
+  if (openLetterBtn) {
+    openLetterBtn.addEventListener('click', async () => {
+      openLetterBtn.style.display = 'none';
+      const lastLetterSection = document.getElementById('last-letter-section');
+      if (lastLetterSection) {
+        lastLetterSection.style.display = 'block';
+      }
+      
+      const letterBubble = document.getElementById('letter-content-bubble');
+      if (letterBubble) {
+        letterBubble.innerHTML = '편지를 전송 통로에서 스캔하고 있습니다...';
+        
+        let letterText = '';
+        try {
+          if (geminiApiKey) {
+            letterText = await fetchGeminiLastLetter(relationship, finderName);
+          } else {
+            // Simulate brief scanning latency
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            letterText = mockLetters[relationship] || mockLetters['stranger'];
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('API 연결 실패. 미리 준비된 마지막 편지를 불러옵니다.');
+          letterText = mockLetters[relationship] || mockLetters['stranger'];
+        }
+        
+        typeWriterEffect(letterBubble, letterText);
+      }
+    });
+  }
+
   // Bind Share button
   const shareBtn = document.getElementById('share-btn');
   if (shareBtn) {
@@ -467,6 +582,42 @@ function renderResultScreen(text, imageName) {
   if (resetBtn) {
     resetBtn.addEventListener('click', resetRelicUI);
   }
+
+  // Bind Subscription Form
+  const subForm = document.getElementById('letter-subscription-form');
+  if (subForm) {
+    subForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('subscriber-email');
+      const emailVal = emailInput ? emailInput.value.trim() : '';
+      
+      if (!emailVal) return;
+      
+      // Store in localStorage (lead generation simulation)
+      let subscribers = JSON.parse(localStorage.getItem('AETHERIUS_SUBSCRIBERS') || '[]');
+      subscribers.push({
+        email: emailVal,
+        owner: ownerName,
+        finder: finderName,
+        relationship: relationship,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('AETHERIUS_SUBSCRIBERS', JSON.stringify(subscribers));
+      
+      // Update status message
+      const statusDiv = document.getElementById('subscription-status');
+      if (statusDiv) {
+        statusDiv.textContent = `✉️ 편지 보존 완료! ${finderName}님의 이메일(${emailVal})로 ${ownerName} 님의 마지막 편지 발송 예약이 성공적으로 완료되었습니다.`;
+        statusDiv.style.display = 'block';
+      }
+      
+      // Show toast
+      showToast('💌 마지막 편지가 메일함으로 발송 예약되었습니다.');
+      
+      // Reset form fields
+      if (subForm) subForm.reset();
+    });
+  }
 }
 
 function resetRelicUI() {
@@ -476,6 +627,8 @@ function resetRelicUI() {
   // Clear owner data
   ownerName = '';
   ownerPhone = '';
+  relationship = 'stranger';
+  finderName = '';
   selectedClue = 'sunset';
   
   // Re-render initial setup state
@@ -498,6 +651,20 @@ function resetRelicUI() {
           <div class="form-group" style="margin-top: 1rem;">
             <div class="input-label">전화번호</div>
             <input type="tel" id="owner-phone-input" class="text-input" placeholder="예: 010-1234-5678" autocomplete="off" required>
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <div class="input-label">나와의 관계</div>
+            <select id="relationship-input" class="text-input" style="appearance: none; background-image: radial-gradient(var(--color-gold) 1px, transparent 0); background-position: right 15px center; background-size: 8px 8px; background-repeat: no-repeat;">
+              <option value="friend">친구</option>
+              <option value="lover">연인</option>
+              <option value="family">가족</option>
+              <option value="myself">나 자신</option>
+              <option value="stranger" selected>낯선 사람 / 습득자</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <div class="input-label">내 이름 (편지 수신인)</div>
+            <input type="text" id="finder-name-input" class="text-input" placeholder="예: 홍길동" autocomplete="off" required>
           </div>
         </div>
       </div>
@@ -560,6 +727,60 @@ In the end, deliver a message of comfort to the finder on behalf of ${ownerName}
     body: JSON.stringify({
       contents: [{
         parts: [{ text: systemPrompt }]
+      }],
+      generationConfig: {
+        temperature: 1.0,
+        maxOutputTokens: 1000
+      }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error('API Request Failed');
+  }
+
+  const data = await response.json();
+  return data.candidates[0].content.parts[0].text;
+}
+
+// Call Gemini API to generate the custom last letter
+async function fetchGeminiLastLetter(relationship, finderName) {
+  const relationshipTerms = {
+    friend: '오랜 친구 (친구로서 함께 보낸 고마운 시간, 함께 웃고 울던 일들)',
+    lover: '사랑했던 연인 (사랑의 순간들, 먼저 떠나게 된 미안함과 애절한 사랑)',
+    family: '그리운 가족 (가족으로서 다 표현하지 못했던 고마움과 가족을 향한 안부)',
+    myself: '나 자신 (삶을 견뎌내느라 고생했던 또 다른 나에 대한 위안과 성찰)',
+    stranger: '낯선 사람/휴대폰 습득자 (자신의 흔적을 바라봐 준 것에 대한 고마움과 축복)'
+  };
+
+  const selectedTerm = relationshipTerms[relationship] || relationshipTerms['stranger'];
+  const randomSeed = Math.random().toString(36).substring(7);
+
+  const prompt = `You are the deceased owner of a smartphone named "${ownerName}". You have recently passed away.
+A person named "${finderName}" has found your phone. Their relationship to you is "${selectedTerm}".
+Write a deeply emotional, poetic, and heart-wrenching final letter (마지막 편지) from you (the deceased owner "${ownerName}") to "${finderName}".
+
+Please write in Korean. The letter should sound like a gentle whisper from heaven.
+Guidelines:
+1. Address the recipient directly as "${finderName}".
+2. Refer to yourself as "${ownerName}" if needed, or speak in first-person ("나").
+3. Make the narrative deeply customized to their relationship ("${selectedTerm}"). Reflect on shared memories, regrets, and express immense gratitude for holding your phone and looking at your traces.
+4. Keep the tone warm, sad but comforting, highly artistic, and evocative.
+5. End with a beautiful, peaceful wish for "${finderName}"'s future happiness.
+6. Do not include any automated prefix, markup or placeholders, just return the direct text of the letter. Keep it around 500-700 Korean characters.
+
+(Unique Seed for variety: ${randomSeed})`;
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{ text: prompt }]
       }],
       generationConfig: {
         temperature: 1.0,
