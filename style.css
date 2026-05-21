@@ -1129,3 +1129,98 @@ footer {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Cookie Consent Banner Styling */
+.cookie-consent-banner {
+  position: fixed;
+  bottom: -180px; /* Start off-screen */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 650px;
+  background: rgba(20, 16, 34, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 201, 116, 0.2);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(226, 201, 116, 0.05);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  opacity: 0;
+}
+
+.cookie-consent-banner.show {
+  bottom: 24px;
+  opacity: 1;
+}
+
+.cookie-consent-content {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.cookie-consent-content a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  transition: opacity var(--transition-fast);
+}
+
+.cookie-consent-content a:hover {
+  opacity: 0.8;
+}
+
+.cookie-consent-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.cookie-consent-btn {
+  background: transparent;
+  border: 1px solid rgba(226, 201, 116, 0.3);
+  color: var(--color-text-primary);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.cookie-consent-btn.btn-accept {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #141022;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(226, 201, 116, 0.2);
+}
+
+.cookie-consent-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.cookie-consent-btn.btn-accept:hover {
+  box-shadow: 0 6px 16px rgba(226, 201, 116, 0.3);
+}
+
+@media (min-width: 600px) {
+  .cookie-consent-banner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    gap: 1.5rem;
+  }
+  .cookie-consent-content {
+    flex: 1;
+  }
+  .cookie-consent-actions {
+    flex-shrink: 0;
+  }
+}
+
+
