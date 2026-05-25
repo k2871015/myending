@@ -1473,5 +1473,92 @@ body[data-active-clue="screen"] {
   animation: pulseGlow 1.5s infinite;
 }
 
+/* Digital Relic Guide Section Styles */
+.relic-guide-section {
+  margin-top: 3rem;
+  padding: 3rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px);
+  transition: var(--transition-smooth);
+}
+.guide-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.guide-header h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+  background: linear-gradient(135deg, var(--color-text-primary) 30%, var(--color-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.guide-header p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.guide-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: rgba(226, 201, 116, 0.1);
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.guide-card {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  transition: var(--transition-smooth);
+}
+.guide-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(226, 201, 116, 0.2);
+  transform: translateY(-5px);
+}
+.guide-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.guide-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+.guide-card p {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .relic-guide-section {
+    padding: 1.5rem;
+  }
+}
+
 
 
