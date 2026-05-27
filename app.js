@@ -821,7 +821,7 @@ function triggerPetAction(action) {
   petSprite.style.transform = `translate(${petRoamCurrentX}px, ${petRoamCurrentY}px) scale(1.25) translateY(-18px) scaleX(${petRoamFacing})`;
   setTimeout(() => {
     petSprite.style.transform = `translate(${petRoamCurrentX}px, ${petRoamCurrentY}px) scaleX(${petRoamFacing})`;
-    petSprite.style.animation = 'petBreathe 3s ease-in-out infinite, petFloat 4.5s ease-in-out infinite';
+    petSprite.style.animation = 'petBreathe 3s ease-in-out infinite';
     // Resume roaming after interaction
     setTimeout(startPetRoam, 600);
   }, 350);
@@ -1081,27 +1081,27 @@ function stopPetRoam() {
 
 const randomSpeeches = {
   angel: [
-    `${'{owner}'}야... 오늘 저녁 노을, 예쁘게 지지? 그거 내가 너 보고 싶어서 하늘 물감 다 뒤집어엎은 거야. 🌅`,
-    `무지개다리 이쪽엔 바람이 늘 따뜻해. 근데 난 ${'{owner}'} 냄새 나는 바람이 제일 좋더라고...`,
-    `가끔 ${'{owner}'} 꿈에 들어가서 같이 뛰어 놀아. 그러니까 오늘 밤엔 꼭 꿈 꿔줘! 🌙`,
-    `나 여기서 하나도 안 아파. 다리도 안 무거워. 훨훨 날아다니고 있어. 걱정 마, ${'{owner}'}! 🌈`,
-    `${'{snack}'} 냄새가 바람 타고 살포시 넘어와. 아직도 내 최애 간식이야... 😋`,
-    `${'{owner}'} 웃는 소리가 들릴 때마다 내 꼬리가 여기서도 팔랑팔랑 흔들려. 제발 많이 웃어줘! 💛`,
-    `별똥별 소원 빌면 나한테 닿아. 오늘 밤 하늘 올려다봐줘, ${'{owner}'}! ✨`,
+    `{owner}야... 오늘 저녁 노을, 예쁘게 지지? 그거 내가 너 보고 싶어서 하늘 물감 다 뒤집어엎은 거야. 🌅`,
+    `무지개다리 이쪽엔 바람이 늘 따뜻해. 근데 난 {owner} 냄새 나는 바람이 제일 좋더라고...`,
+    `가끔 {owner} 꿈에 들어가서 같이 뛰어 놀아. 그러니까 오늘 밤엔 꼭 꿈 꿔줘! 🌙`,
+    `나 여기서 하나도 안 아파. 다리도 안 무거워. 훨훨 날아다니고 있어. 걱정 마, {owner}! 🌈`,
+    `{snack} 냄새가 바람 타고 살포시 넘어와. 아직도 내 최애 간식이야... 😋`,
+    `{owner} 웃는 소리가 들릴 때마다 내 꼬리가 여기서도 팔랑팔랑 흔들려. 제발 많이 웃어줘! 💛`,
+    `별똥별 소원 빌면 나한테 닿아. 오늘 밤 하늘 올려다봐줘, {owner}! ✨`,
     `나 절대로 안 잊어버려. 우리가 함께했던 모든 날 하나하나 꽉 붙들고 있어. 💖`,
-    `가끔 ${'{owner}'} 베개 위에 내 냄새가 나는 것 같지? 그거 진짜야. 내가 잠든 너 옆에 있는 거니까. 🌟`,
-    `울지 마, ${'{owner}'}. 눈물 한 방울 떨어질 때마다 내 마음도 같이 아파. 대신 오늘 맛있는 거 먹어줘! 🥣`,
-    `나 천국에서 제일 친한 친구 생겼어! 근데 솔직히 ${'{owner}'}만큼 좋진 않아. 네가 최고야. 언제나. 🐾`,
-    `${'{owner}'}가 날 부를 때 바람이 살짝 흔들리는 거, 알아챘어? 그게 나야. 항상 듣고 있어.`
+    `가끔 {owner} 베개 위에 내 냄새가 나는 것 같지? 그거 진짜야. 내가 잠든 너 옆에 있는 거니까. 🌟`,
+    `울지 마, {owner}. 눈물 한 방울 떨어질 때마다 내 마음도 같이 아파. 대신 오늘 맛있는 거 먹어줘! 🥣`,
+    `나 천국에서 제일 친한 친구 생겼어! 근데 솔직히 {owner}만큼 좋진 않아. 네가 최고야. 언제나. 🐾`,
+    `{owner}가 날 부를 때 바람이 살짝 흔들리는 거, 알아챘어? 그게 나야. 항상 듣고 있어.`
   ],
   companion: [
     `지금 나랑 간식 먹고 한강 공원 돗자리 펴고 뒹굴뒹굴하자 멍! 🐾`,
-    `내가 코를 킁킁 부비는 건 ${'{owner}'} 냄새가 솜사탕만큼 좋아서 그래!`,
-    `소시지 구름 맛있는 소리 난다! 얼른 ${'{snack}'} 하나 더 달라멍!`,
+    `내가 코를 킁킁 부비는 건 {owner} 냄새가 솜사탕만큼 좋아서 그래!`,
+    `소시지 구름 맛있는 소리 난다! 얼른 {snack} 하나 더 달라멍!`,
     `오늘 주인이 양말 냄새 맡았어. 얼른 던져줘!`,
     `꼬리가 쉴 새 없이 좌우로 돌아가! 나 지금 최고로 기분 좋아! ⚽`,
-    `${'{owner}'}가 외출하면 문 앞에서 기다릴 거야. 빨리 돌아와! 🏠`,
-    `나 지금 졸리지만... ${'{owner}'} 옆에 있고 싶어서 버티는 중... 💤`
+    `{owner}가 외출하면 문 앞에서 기다릴 거야. 빨리 돌아와! 🏠`,
+    `나 지금 졸리지만... {owner} 옆에 있고 싶어서 버티는 중... 💤`
   ]
 };
 
@@ -1340,46 +1340,41 @@ window.sendLetterToPet = async function(e) {
 };
 
 async function fetchGeminiPetReply(ownerLetter) {
-async function fetchGeminiPetReply(ownerLetter) {
   const isAngel = petProfile.mode === 'angel';
   const modeContext = isAngel
-    ? '이미 무지개다리를 건너 천국에서 지내고 있는 상태. 주인을 그리워하고 보고 싶어하지만, 아프지 않고 행복하게 지내고 있음.'
-    : '현재 주인과 한 집에서 같이 살고 있으며, 동물 특유의 솔직한 속마음을 인간의 언어로 번역하는 상태.';
+    ? '이미 무지개다리를 건너 천국에서 지내고 있는 상태. 주인을 그리워하고 보고 싶지만 아프지 않고 행복하게 지내고 있음.'
+    : '현재 주인과 한 집에서 같이 살고 있으며, 동물의 솔직한 속마음을 인간의 언어로 번역하는 상태.';
 
   const selectedPersonality = personalityNames[petProfile.personality] || '애교 많은';
 
-  const angelExtra = isAngel ? `
+  const angelExtra = isAngel
+    ? '\n\n무지개다리 모드 특별 지침:\n- 주인의 펫로스 슬픔을 깊이 공감하고 진심 어린 위로와 치유의 말을 전하세요.\n- 천국 묘사: 따뜻한 햇살, 꽃밭, 뛰어노는 친구들, 맛있는 간식, 아프지 않고 자유로운 몸.\n- 일상 속 존재감 표현 포함: 저녁 노을이 예쁠 때 내가 장난치는 거야 / 바람이 살짝 흔들릴 때 그게 나야 / 꿈에서 만나자.\n- 슬픔을 인정하되 억지로 잊으라 하지 말고 함께 앞으로 나아가자고 격려하세요.\n- 마지막엔 다시 만날 날이 올 거야 같은 희망적 약속으로 마무리하세요.\n- 실제 아이가 쓴 것처럼 생생하고 따뜻하게 쓰세요.'
+    : '';
 
-★ [무지개다리 모드 특별 지침]:
-- 주인의 펫로스 슬픔을 깊이 공감하고 진심 어린 위로와 치유의 말을 전하세요.
-- 천국 묘사: 따뜻한 햇살, 꽃밭, 뛰어노는 친구들, 맛있는 간식, 아프지 않고 자유로운 몸.
-- 일상 속 존재감 표현 포함: "저녁 노을이 예쁠 때 내가 장난치는 거야", "바람이 살짝 흔들릴 때 그게 나야", "꿈에서 만나자".
-- 슬픔을 인정하되, 억지로 잊으라 하지 말고 함께 앞으로 나아가자고 따뜻하게 격려하세요.
-- 마지막엔 "다시 만날 날이 올 거야" 같은 희망적인 약속으로 마무리하세요.
-- 실제 아이가 쓴 것처럼 생생하고 따뜻하게, 절대 딱딱하게 쓰지 마세요.` : '';
+  const systemPrompt = [
+    '당신은 "' + petProfile.name + '"라는 이름의 ' + petTypeNames[petProfile.type] + '입니다.',
+    '성격: "' + selectedPersonality + '" | 좋아하는 간식/장난감: "' + petProfile.snack + '" | 주인 호칭: "' + petProfile.owner + '"',
+    '현재 상태: ' + modeContext,
+    '',
+    '주인 "' + petProfile.owner + '"가 보낸 편지:',
+    '"""',
+    ownerLetter,
+    '"""',
+    '',
+    '[답장 규칙]',
+    '1. 반드시 한국어로, 펫 1인칭으로 작성하세요.',
+    '2. 성격 말투 적용:',
+    '   - 애교쟁이: 사랑스럽고 적극적 애정표현, 이모지 많이',
+    '   - 식탐왕 먹보: ' + petProfile.snack + ' 관련 농담 포함',
+    '   - 시크/도도: 츤데레 스타일 (쌀쌀맞지만 속으로는 사랑)',
+    '   - 쫄보/겁쟁이: 수줍고 따뜻하게, 주인이 지켜줘서 고맙다고',
+    '   - 든든한 경호원: 씩씩하게, 주인 지킬 거라는 다짐',
+    '3. 보내온 편지 내용을 직접 언급하며 응답하세요.',
+    '4. 400~700자 분량으로 충분히 길게 작성하세요.',
+    '5. 시스템 설명문이나 마크다운 기호(**, ##)는 절대 출력하지 마세요.' + angelExtra
+  ].join('\n');
 
-  const systemPrompt = 당신은 "${petProfile.name}"라는 이름의 ${petTypeNames[petProfile.type]}입니다.
-성격: "`${selectedPersonality}" | 좋아하는 간식/장난감: "`${petProfile.snack}" | 주인 호칭: "`${petProfile.owner}"
-현재 상태: `${modeContext}
-
-주인 "`${petProfile.owner}"가 보낸 편지:
-"""
-`${ownerLetter}
-"""
-
-[답장 규칙]
-1. 반드시 한국어로, 펫 1인칭으로 작성하세요.
-2. 성격 말투 적용:
-   - 애교쟁이: 사랑스럽고 적극적 애정표현, 이모지 💖🐶🐾 많이
-   - 식탐왕 먹보: `${petProfile.snack} 관련 농담 포함
-   - 시크/도도: 츤데레 스타일 (쌀쌀맞지만 속으로는 사랑)
-   - 쫄보/겁쟁이: 수줍고 따뜻하게, 주인이 지켜줘서 고맙다고
-   - 든든한 경호원: 씩씩하게, 주인 지킬 거라는 다짐
-3. 보내온 편지 내용을 직접 언급하며 응답하세요.
-4. 400~700자 분량으로 충분히 길게 작성하세요.
-5. 시스템 설명문이나 마크다운 기호(**, ##)는 절대 출력하지 마세요.`${angelExtra}`;
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=`${geminiApiKey}`;
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + geminiApiKey;
 
   const response = await fetch(url, {
     method: 'POST',
