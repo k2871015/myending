@@ -369,29 +369,26 @@ function playActionSound(type) {
    4. Cookie Consent & Modal Manager
    ========================================================================== */
 function initCookieConsent() {
-  const CONSENT_KEY = 'aetherius-pet-cookie';
-  if (localStorage.getItem(CONSENT_KEY)) return;
-  
-  const banner = document.createElement('div');
-  banner.className = 'cookie-consent-banner';
-  banner.innerHTML = `
-    <div class="cookie-consent-content">
-      에테리우스 펫 에디션은 분석 및 광고 제공(AdSense)을 위해 브라우저 쿠키를 활용하며, 다마고치 정보 유지를 위해 로컬 저장소를 활용합니다. 
-      자세한 내용은 <a href="privacy.html">개인정보처리방침</a>에서 보실 수 있으며 이용 시 이에 동의하는 것으로 간주됩니다.
-    </div>
-    <div class="cookie-consent-actions">
-      <button class="cookie-consent-btn btn-accept" id="cookie-accept-btn">동의 및 활성화</button>
-    </div>
-  `;
-  document.body.appendChild(banner);
-  setTimeout(() => banner.classList.add('show'), 1200);
-  
-  document.getElementById('cookie-accept-btn').addEventListener('click', () => {
-    localStorage.setItem(CONSENT_KEY, 'true');
-    banner.classList.remove('show');
-    setTimeout(() => banner.remove(), 500);
-  });
+  const consent = localStorage.getItem('cookie-consent');
+  const banner = document.getElementById('cookie-banner');
+  if (consent === 'accepted' && banner) {
+    banner.style.display = 'none';
+  } else if (banner) {
+    banner.style.display = 'flex';
+  }
 }
+
+// Global function for Cookie Accept button
+window.acceptCookies = function() {
+  localStorage.setItem('cookie-consent', 'accepted');
+  const banner = document.getElementById('cookie-banner');
+  if (banner) {
+    banner.style.opacity = '0';
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300);
+  }
+};
 
 /* ==========================================================================
    5. Hamburger Mobile Nav Toggle

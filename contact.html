@@ -44,34 +44,47 @@
       </p>
 
       <!-- Contact Form -->
-      <form class="contact-form" id="contact-feedback-form" onsubmit="handleFormSubmit(event)">
+      <form class="contact-form" id="contact-feedback-form">
         <div class="form-row">
           <div class="form-group">
             <label class="input-label" for="user-name">이름 / 닉네임</label>
-            <input type="text" id="user-name" class="text-input" required placeholder="성함을 입력해 주세요">
+            <input type="text" id="user-name" name="name" class="text-input" required placeholder="성함을 입력해 주세요">
+            <span class="error-message" data-fs-error="name" style="color: var(--color-red); font-size: 0.75rem; display: block; margin-top: 4px;"></span>
           </div>
           <div class="form-group">
             <label class="input-label" for="user-email">이메일 주소</label>
-            <input type="email" id="user-email" class="text-input" required placeholder="name@domain.com">
+            <input type="email" id="user-email" name="email" class="text-input" required placeholder="name@domain.com">
+            <span class="error-message" data-fs-error="email" style="color: var(--color-red); font-size: 0.75rem; display: block; margin-top: 4px;"></span>
           </div>
         </div>
         
         <div class="form-group">
           <label class="input-label" for="inquiry-type">문의 분류</label>
-          <select id="inquiry-type" class="text-input" style="appearance: none; background-image: radial-gradient(var(--color-gold) 1px, transparent 0); background-position: right 15px center; background-size: 8px 8px; background-repeat: no-repeat;">
+          <select id="inquiry-type" name="type" class="text-input" style="appearance: none; background-image: radial-gradient(var(--color-gold) 1px, transparent 0); background-position: right 15px center; background-size: 8px 8px; background-repeat: no-repeat;">
             <option value="feedback">펫 시뮬레이터 기능 제안 및 힐링 후기 피드백</option>
             <option value="api">Gemini API 연동 관련 작동 오류 문의</option>
             <option value="partnership">아트 및 동물 복지 프로젝트 협업 제안</option>
             <option value="other">기타 일반 문의</option>
           </select>
+          <span class="error-message" data-fs-error="type" style="color: var(--color-red); font-size: 0.75rem; display: block; margin-top: 4px;"></span>
         </div>
 
         <div class="form-group">
           <label class="input-label" for="message-content">문의 내용</label>
-          <textarea id="message-content" class="text-input text-area" required placeholder="따뜻한 한마디나 문의 사항을 작성해 주세요."></textarea>
+          <textarea id="message-content" name="message" class="text-input text-area" required placeholder="따뜻한 한마디나 문의 사항을 작성해 주세요."></textarea>
+          <span class="error-message" data-fs-error="message" style="color: var(--color-red); font-size: 0.75rem; display: block; margin-top: 4px;"></span>
         </div>
 
-        <button type="submit" class="action-btn" style="margin-top: 1rem;">
+        <div class="form-messages" style="margin-top: 1rem;">
+          <div class="form-success-container" data-fs-success style="display: none; padding: 1rem; border-radius: 12px; background: rgba(226, 201, 116, 0.1); border: 1px solid var(--color-gold); color: var(--color-gold); text-align: center; margin-bottom: 1rem;">
+            🎉 문의가 전송되었습니다! 소중한 의견은 정성껏 검토하겠습니다.
+          </div>
+          <div class="form-error-container" data-fs-error style="display: none; padding: 1rem; border-radius: 12px; background: rgba(255, 60, 60, 0.1); border: 1px solid var(--color-red); color: var(--color-red); text-align: center; margin-bottom: 1rem;">
+            ❌ 전송에 실패했습니다. 이메일 주소 등을 확인 후 다시 시도해 주세요.
+          </div>
+        </div>
+
+        <button type="submit" class="action-btn" data-fs-submit-btn style="margin-top: 1rem;">
           ✉️ 메시지 보내기
         </button>
       </form>
@@ -119,40 +132,9 @@
   <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
   <script src="app.js"></script>
   <script>
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('user-name').value;
-      
-      document.getElementById('contact-feedback-form').reset();
-      
-      let overlay = document.getElementById('success-overlay');
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'success-overlay';
-        overlay.className = 'success-overlay';
-        overlay.innerHTML = `
-          <div class="success-card">
-            <div class="success-icon-anim">✉️</div>
-            <h2 style="font-family: var(--font-serif); color: var(--color-gold); margin-bottom: 1rem; letter-spacing: 0.05em;">전송 완료</h2>
-            <p id="success-modal-message" style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 2rem;">
-              ${name}님의 소중한 의견이 에테리우스 펫 보관소로 안전하게 전송되었습니다.
-            </p>
-            <button id="success-close-btn" class="btn-primary" style="width: 100%; max-width: 150px; cursor: pointer; padding: 0.75rem; border-radius: 12px; border: none; font-weight: 600; font-family: var(--font-sans);">확인</button>
-          </div>
-        `;
-        document.body.appendChild(overlay);
-        
-        overlay.querySelector('#success-close-btn').addEventListener('click', () => {
-          overlay.classList.remove('active');
-        });
-      } else {
-        document.getElementById('success-modal-message').textContent = `${name}님의 소중한 의견이 에테리우스 펫 보관소로 안전하게 전송되었습니다.`;
-      }
-      
-      setTimeout(() => {
-        overlay.classList.add('active');
-      }, 50);
-    }
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-feedback-form', formId: 'mojbyjyw' });
   </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
