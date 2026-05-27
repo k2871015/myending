@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Aetherius Pet — Pet Memorial & Companion Simulator</title>
+  <meta name="description" content="Share your feedback, partnership proposals, or any questions about the Aetherius Pet project. We'd love to hear from you.">
+  <link rel="stylesheet" href="../style.css">
+  <!-- Google AdSense Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3114463937796990" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles-js"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"></span>
+        AETHERIUS PET
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Memory Station</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <a href="../contact.html" class="icon-btn" style="text-decoration:none; font-size:0.8rem;">🌐 KO</a>
+        <button class="icon-btn" id="music-toggle-btn">🔇 Sound Off</button>
+        <button class="icon-btn" id="open-modal-btn">⚙️ API Key</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="content-layout">
+      <h1>Contact Us</h1>
+      <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: 2rem;">
+        Whether it's a feature suggestion, a healing story to share, or a collaboration proposal — we warmly welcome all messages about the Aetherius Pet project.
+      </p>
+
+      <!-- Contact Form -->
+      <form class="contact-form" id="contact-feedback-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="input-label" for="user-name">Name / Nickname</label>
+            <input type="text" id="user-name" class="text-input" required placeholder="Please enter your name">
+          </div>
+          <div class="form-group">
+            <label class="input-label" for="user-email">Email Address</label>
+            <input type="email" id="user-email" class="text-input" required placeholder="name@domain.com">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="input-label" for="inquiry-type">Inquiry Type</label>
+          <select id="inquiry-type" class="text-input" style="appearance: none; background-image: radial-gradient(var(--color-gold) 1px, transparent 0); background-position: right 15px center; background-size: 8px 8px; background-repeat: no-repeat;">
+            <option value="feedback">Pet Simulator Feature Suggestions & Healing Feedback</option>
+            <option value="api">Gemini API Integration / Technical Issues</option>
+            <option value="partnership">Art & Animal Welfare Project Collaboration</option>
+            <option value="other">General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="input-label" for="message-content">Message</label>
+          <textarea id="message-content" class="text-input text-area" required placeholder="Share a warm word or let us know what's on your mind."></textarea>
+        </div>
+
+        <button type="submit" class="action-btn" style="margin-top: 1rem;">
+          ✉️ Send Message
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="padding: 0;">
+            <span class="logo-icon"></span>
+            AETHERIUS PET
+          </a>
+          <p>Aetherius is an emotional healing simulator that restores the beautiful memories shared with pets who have passed on, and brings warmth to those left behind.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Memory Station</h4>
+            <ul>
+              <li><a href="index.html">Memory Simulator</a></li>
+              <li><a href="about.html">About the Project</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Policies</h4>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../terms.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Language</h4>
+            <ul>
+              <li><a href="../contact.html">한국어</a></li>
+              <li><a href="contact.html">English</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aetherius Pet. All rights reserved.</p>
+        <p>This site complies with Google AdSense policies and ensures user data security and transparency.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
+  <script src="../app.js"></script>
+  <script>
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('user-name').value;
+      
+      document.getElementById('contact-feedback-form').reset();
+      
+      let overlay = document.getElementById('success-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'success-overlay';
+        overlay.className = 'success-overlay';
+        overlay.innerHTML = `
+          <div class="success-card">
+            <div class="success-icon-anim">✉️</div>
+            <h2 style="font-family: var(--font-serif); color: var(--color-gold); margin-bottom: 1rem; letter-spacing: 0.05em;">Message Sent</h2>
+            <p id="success-modal-message" style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 2rem;">
+              ${name}, your precious message has been safely delivered to the Aetherius Pet archive.
+            </p>
+            <button id="success-close-btn" class="btn-primary" style="width: 100%; max-width: 150px; cursor: pointer; padding: 0.75rem; border-radius: 12px; border: none; font-weight: 600; font-family: var(--font-sans);">OK</button>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        overlay.querySelector('#success-close-btn').addEventListener('click', () => {
+          overlay.classList.remove('active');
+        });
+      } else {
+        document.getElementById('success-modal-message').textContent = `${name}, your precious message has been safely delivered to the Aetherius Pet archive.`;
+      }
+      
+      setTimeout(() => {
+        overlay.classList.add('active');
+      }, 50);
+    }
+  </script>
+</body>
+</html>

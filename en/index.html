@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetherius Pet — Pet Memory Station & Companion Simulator 🌈</title>
+  <meta name="description" content="A memorial space for pets who have crossed the Rainbow Bridge, and a heartfelt simulator that translates the inner voice of the companions still by your side. Connect through a virtual pet, Memory Album, and Heart Letterbox.">
+  <meta name="keywords" content="pet memorial, pet loss syndrome, rainbow bridge, pet letter, pet simulator, virtual pet tamagotchi, digital keepsake, pet grief support">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="../style.css">
+  
+  <!-- Google AdSense Code -->
+  <meta name="google-adsense-account" content="ca-pub-3114463937796990">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3114463937796990" crossorigin="anonymous"></script>
+  
+  <!-- html2canvas for pet passport download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles-js"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"></span>
+        AETHERIUS PET
+      </a>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="index.html" class="active">Memory Station</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <a href="../index.html" class="icon-btn" style="text-decoration:none; font-size:0.8rem;">🌐 KO</a>
+        <button class="icon-btn" id="music-toggle-btn" aria-label="Sound Toggle">🔇 Sound Off</button>
+        <button class="icon-btn" id="open-modal-btn" aria-label="API Key Settings">⚙️ API Key</button>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Open Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Hero / Relic Simulator Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <div class="subtitle-badge">
+          <span>✧</span> Rainbow Bridge & Companion Restorer
+        </div>
+        <h1>A Warm Memory Station<br>for You and Your Pet</h1>
+        <p>
+          Cherish the time spent with your beloved pet in a gentle digital space — reconnect, remember, and feel their warmth once more.<br><br>
+          <strong>🌈 Rainbow Bridge Mode</strong> restores letters sent from a pet who has passed on and offers a memorial space where you can share memories in a Tamagotchi room. 
+          <strong>🐾 Companion Mode</strong> analyzes your living pet's behavioral traits and translates their inner feelings into words — a healing space to deepen your bond.
+        </p>
+      </div>
+
+      <!-- Relic Device Container -->
+      <div class="relic-container">
+        <div class="device-frame">
+          <div class="device-header">
+            <div class="device-status">
+              <span class="signal-dot"></span>
+              AETHERIUS PET CELL
+            </div>
+            <div class="device-status" style="font-size: 0.7rem;">
+              PET-RESTORE V2.0
+            </div>
+          </div>
+          
+          <div class="device-screen" id="screen-container">
+            <!-- Setup State: Owner Identity Input -->
+            <div class="screen-state" id="setup-state">
+              <div class="intro-content" style="padding-top: 0.5rem;">
+                <div class="device-icon-wrapper" style="width: 60px; height: 60px; margin-bottom: 0.5rem;">
+                  <span class="relic-icon" style="font-size: 1.6rem;">🌈</span>
+                </div>
+                <h3>Begin Memory Sync</h3>
+                <p class="desc">
+                  Enter your pet's details to activate the fragments of memory.
+                </p>
+                
+                <div class="setting-panel" style="border: none; margin: 0.5rem 0 0 0; padding: 0; width: 100%; gap: 0.6rem;">
+                  <div class="form-group">
+                    <div class="input-label">Select Mode</div>
+                    <select id="mode-input" class="text-input" style="padding: 0.5rem 0.75rem;">
+                      <option value="angel">🌈 Rainbow Bridge Mode (Memorial)</option>
+                      <option value="companion" selected>🐾 Companion Mode (Translate/Nurture)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-label">Pet's Name</div>
+                    <input type="text" id="pet-name-input" class="text-input" placeholder="e.g. Coco, Luna, Milo" autocomplete="off" required style="padding: 0.5rem 0.75rem;">
+                  </div>
+                  <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <div class="form-group">
+                      <div class="input-label">Animal Type</div>
+                      <select id="pet-type-input" class="text-input" style="padding: 0.5rem 0.75rem;">
+                        <option value="dog">🐶 Dog</option>
+                        <option value="cat">🐱 Cat</option>
+                        <option value="rabbit">🐰 Rabbit</option>
+                        <option value="hamster">🐹 Hamster</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-label">Personality</div>
+                      <select id="pet-personality-input" class="text-input" style="padding: 0.5rem 0.75rem;">
+                        <option value="friendly">💖 Affectionate</option>
+                        <option value="glutton">🍗 Foodie</option>
+                        <option value="chic">🕶️ Aloof / Chic</option>
+                        <option value="timid">🥺 Timid / Shy</option>
+                        <option value="reliable">🛡️ Loyal Guardian</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-label">Favorite Treat / Toy</div>
+                    <input type="text" id="pet-snack-input" class="text-input" placeholder="e.g. Treats, Chew bone, Yarn ball" autocomplete="off" required style="padding: 0.5rem 0.75rem;">
+                  </div>
+                  <div class="form-group">
+                    <div class="input-label">Your Name (What your pet calls you)</div>
+                    <input type="text" id="owner-name-input" class="text-input" placeholder="e.g. Mom, Dad, Buddy" autocomplete="off" required style="padding: 0.5rem 0.75rem;">
+                  </div>
+                </div>
+              </div>
+              
+              <button class="action-btn" id="start-btn" style="margin-top: 1rem; padding: 0.8rem 1.2rem;">
+                Sync & Activate Pet Room ➔
+              </button>
+            </div>
+
+            <!-- Pet Room State: Rendered dynamically via app.js -->
+            <!-- Scanning state, Result state, etc. will also dynamically render here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Sub-systems below device (Unlocked after start) -->
+    <div id="interactive-subsystems" class="interactive-subsystems-hidden">
+      
+      <!-- Memory Diary Section -->
+      <section class="memory-diary-section glass-card" id="diary-section">
+        <div class="sub-header">
+          <span class="sub-badge">Memory Album</span>
+          <h2>Our Memory Album 📖</h2>
+          <p>Record the small but luminous moments you shared together. Each memory entry adds 20 XP to your virtual pet's bond level.</p>
+        </div>
+        
+        <!-- Photo Upload Area -->
+        <div class="photo-upload-area" id="photo-upload-area">
+          <div class="upload-dropzone" id="upload-dropzone">
+            <span class="upload-icon">📷</span>
+            <p>Drag a photo here or click to upload</p>
+            <input type="file" id="diary-photo-input" accept="image/*" style="display:none;">
+          </div>
+          <div class="photo-preview" id="photo-preview" style="display:none;">
+            <img id="preview-img" alt="Preview">
+            <button type="button" class="remove-photo-btn" id="remove-photo-btn">✕</button>
+          </div>
+        </div>
+
+        <div class="diary-layout">
+          <!-- Form to add diary -->
+          <form class="diary-form" id="diary-entry-form" onsubmit="saveDiaryEntry(event)">
+            <div class="form-row" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="input-label">Memory Title</label>
+                <input type="text" id="diary-title" class="text-input" placeholder="e.g. The day we picnicked by the river" required>
+              </div>
+              <div class="form-group">
+                <label class="input-label">Memory Date</label>
+                <input type="date" id="diary-date" class="text-input" required>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top: 1rem;">
+              <label class="input-label">Memory Category</label>
+              <div class="diary-emoji-selector" id="diary-emoji-selector">
+                <button type="button" class="diary-emoji-btn active" data-emoji="🌳">🌳 Walk</button>
+                <button type="button" class="diary-emoji-btn" data-emoji="🍖">🍖 Yummy Treat</button>
+                <button type="button" class="diary-emoji-btn" data-emoji="🎉">🎉 Anniversary</button>
+                <button type="button" class="diary-emoji-btn" data-emoji="💤">💤 Sweet Nap</button>
+                <button type="button" class="diary-emoji-btn" data-emoji="🥺">🥺 First Meeting</button>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top: 1rem;">
+              <label class="input-label">Our Story (Diary)</label>
+              <textarea id="diary-text" class="text-input" placeholder="Write about the scents, the gentle gaze, the warmth of soft fur from that day..." required style="min-height: 100px; resize: vertical;"></textarea>
+            </div>
+            <button type="submit" class="action-btn" style="margin-top: 1rem;">
+              📸 Add a Memory to the Album
+            </button>
+          </form>
+
+          <!-- Divider line -->
+          <div class="diary-vertical-line"></div>
+
+          <!-- Diary Grid (Polaroid list) -->
+          <div class="diary-feed">
+            <h3 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-gold); margin-bottom: 1rem; border-left: 2px solid var(--color-gold); padding-left: 0.5rem;">Our Polaroid Collection</h3>
+            <div class="diary-grid" id="diary-cards-grid">
+              <div class="empty-diary-msg">No memories recorded yet. Leave your first story here!</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Letter Box Section -->
+      <section class="letter-box-section glass-card" id="letter-section">
+        <div class="sub-header">
+          <span class="sub-badge">Soul Letterbox</span>
+          <h2>Heart Letterbox ✉️</h2>
+          <p>When you miss your pet so much it takes your breath away, pour your heart into a letter. Gemini AI will deliver a reply in your pet's own voice.</p>
+        </div>
+
+        <div class="letter-layout">
+          <!-- Form to write letter -->
+          <form class="letter-form" id="owner-letter-form" onsubmit="sendLetterToPet(event)">
+            <div class="form-group">
+              <label class="input-label">A Letter to Your Pet</label>
+              <textarea id="owner-letter-text" class="text-input" placeholder="Hey little one, how have you been? Are you eating well up there? Let me tell you how much I miss you..." required style="min-height: 150px; resize: vertical;"></textarea>
+            </div>
+            <button type="submit" class="action-btn" id="send-letter-btn">
+              🕊️ Send a Letter to the Heavenly Station
+            </button>
+          </form>
+
+          <!-- Letters list -->
+          <div class="letters-history">
+            <h3 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-gold); margin-bottom: 1rem; border-left: 2px solid var(--color-gold); padding-left: 0.5rem;">Letter Archive</h3>
+            <div class="letters-list" id="letters-history-list">
+              <div class="empty-letters-msg">The letterbox waits quietly. Send your first letter and a reply will be kept here.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Info Cards Section -->
+    <section>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <div class="card-num">01</div>
+          <h3>Tamagotchi Simulation</h3>
+          <p>
+            In a pet room generated from your pet's name and type, feed them, pet them, and play with them to fill up the bond gauge and deepen your connection.
+          </p>
+        </div>
+        <div class="intro-card">
+          <div class="card-num">02</div>
+          <h3>Memory Polaroids</h3>
+          <p>
+            Record the walks you took together, the first time you met — preserve these precious moments in analog polaroid frames and level up to unlock new room decorations.
+          </p>
+        </div>
+        <div class="intro-card">
+          <div class="card-num">03</div>
+          <h3>Rainbow AI Messenger</h3>
+          <p>
+            Powered by Gemini 1.5 Flash, the AI crafts heartfelt replies from your pet's unique perspective — based on their personality, favorite toys, and the love you've poured into your letters.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Digital Relic Guide Section (Publisher Content for AdSense) -->
+    <section class="relic-guide-section" id="relic-guide">
+      <div class="guide-header">
+        <span class="guide-badge">✧ Pet Loss Care Guide</span>
+        <h2>Pet Loss Care & Memory Archiving Guide</h2>
+        <p>A guide to overcoming grief, beautifully archiving memories with pets who have crossed the Rainbow Bridge, and gently healing your heart.</p>
+      </div>
+
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="guide-card-icon">🐕</div>
+          <h3>1. The First Step in Overcoming Pet Loss Syndrome</h3>
+          <p>
+            The grief of losing a pet can be as profound as losing a family member — this is known as Pet Loss Syndrome. Rather than suppressing your sorrow, it's essential to allow yourself a proper period of mourning. Writing letters to your pet or recording even the smallest memories through archiving can transform negative feelings of depression into something meaningful, helping you regain a sense of emotional warmth and stability.
+          </p>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-card-icon">🗂️</div>
+          <h3>2. The Value of Digital Memory Archiving</h3>
+          <p>
+            Organize the countless photos and videos of your beloved pet sleeping in your phone gallery. Preserve them in a simple diary format along with the weather of that day and the looks you exchanged. Even if devices break down over time, text and image data backed up locally and on external cloud storage become an everlasting light — letting you feel the softness of their fur and the warmth of their tiny nose whenever you need.
+          </p>
+        </div>
+
+        <div class="guide-card">
+          <div class="guide-card-icon">👼</div>
+          <h3>3. Healthy Connection Through Virtual Simulation</h3>
+          <p>
+            Even though your pet may have left your side or be far away, we encourage you to call their name in the virtual space, prepare their meals, and continue the meaning of an eternal companion in your heart. This isn't about being trapped in grief — it's a warm meditation that honors the happy daily routine of caring for them, keeping positive memories alive.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pet Passport Modal Overlay (Hidden by default) -->
+  <div class="modal-overlay" id="passport-modal">
+    <div class="modal-card passport-modal-card" style="max-width: 480px;">
+      <h2>🎫 Pet's Cosmic Passport (ID Card)</h2>
+      <p>An official pet ID card issued at the Aetherius Station. Download and keep it close to your heart!</p>
+      
+      <!-- Passport Layout for Capture -->
+      <div class="passport-capture-wrapper" id="passport-capture-wrapper">
+        <div class="pet-passport">
+          <div class="passport-wavy top"></div>
+          
+          <div class="passport-header">
+            <span class="passport-logo">AETHERIUS SPACE LINE</span>
+            <span class="passport-title">COSMIC PET PASSPORT</span>
+            <div class="passport-line-dash"></div>
+          </div>
+          
+          <div class="passport-main">
+            <div class="passport-photo-frame">
+              <span id="pass-avatar" style="font-size: 2.8rem; line-height: 1;">🐶</span>
+              <span class="passport-photo-seal">APPROVED</span>
+            </div>
+            
+            <div class="passport-details">
+              <div class="pass-row">
+                <span class="p-label">NAME</span>
+                <span class="p-val" id="pass-name">CHOCO</span>
+              </div>
+              <div class="pass-row">
+                <span class="p-label">SPECIES</span>
+                <span class="p-val" id="pass-type">DOG</span>
+              </div>
+              <div class="pass-row">
+                <span class="p-label">RULING</span>
+                <span class="p-val" id="pass-mode">ANGEL</span>
+              </div>
+              <div class="pass-row">
+                <span class="p-label">AFFINITY</span>
+                <span class="p-val" id="pass-level">LEVEL 1</span>
+              </div>
+              <div class="pass-row">
+                <span class="p-label">SNACK</span>
+                <span class="p-val" id="pass-snack">CHURR</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="passport-footer">
+            <div class="passport-line-dash"></div>
+            <div class="passport-barcode"></div>
+            <span class="passport-barcode-num" id="pass-barcode-num">AETH-20260525-01</span>
+            <p class="passport-note">"I AM BLESSED TO BE YOUR LOVING FRIEND."</p>
+          </div>
+          
+          <div class="passport-wavy bottom"></div>
+        </div>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="close-passport-btn" class="btn-secondary">Close</button>
+        <button id="download-passport-btn" class="btn-primary">💾 Save Passport Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="padding: 0;">
+            <span class="logo-icon"></span>
+            AETHERIUS PET
+          </a>
+          <p>Aetherius is an emotional healing simulator that restores the beautiful memories shared with pets who have passed on, and brings warmth to those left behind.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Memory Station</h4>
+            <ul>
+              <li><a href="index.html">Memory Simulator</a></li>
+              <li><a href="about.html">About the Project</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Policies</h4>
+            <ul>
+              <li><a href="../privacy.html">Privacy Policy</a></li>
+              <li><a href="../terms.html">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Language</h4>
+            <ul>
+              <li><a href="../index.html">한국어</a></li>
+              <li><a href="index.html">English</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aetherius Pet. All rights reserved.</p>
+        <p>This site complies with Google AdSense policies and ensures user data security and transparency.</p>
+        <p style="font-size: 0.7rem; color: var(--color-text-muted); margin-top: 0.3rem;">All content on this site is original and provides information on pet emotional care.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
+  <!-- JavaScript Bundle -->
+  <script src="../app.js"></script>
+</body>
+</html>
