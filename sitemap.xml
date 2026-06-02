@@ -27,9 +27,27 @@
     </url>
     <url>
         <loc>https://myending.pages.dev/terms.html</loc>
-        <lastmod>2026-05-28</lastmod>
+        <lastmod>2026-06-02</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://myending.pages.dev/blog.html</loc>
+        <lastmod>2026-06-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://myending.pages.dev/today-house-reviews.html</loc>
+        <lastmod>2026-06-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://myending.pages.dev/digital-relics-philosophy.html</loc>
+        <lastmod>2026-06-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
     </url>
 
     <!-- English Version -->

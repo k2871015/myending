@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기억의 방물관 블로그 | Aetherius (에테리우스)</title>
+  <meta name="description" content="디지털 유품, 인공지능 추모, 그리고 소소한 삶의 인테리어 기록까지. 에테리우스 프로젝트의 철학이 머무는 블로그입니다.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-layout {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .blog-title-area {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .blog-title-area h1 {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--color-text-primary) 30%, var(--color-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .blog-title-area p {
+      color: var(--color-text-secondary);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .blog-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+    }
+    .blog-card:hover {
+      border-color: var(--color-gold);
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(226, 201, 116, 0.15);
+    }
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      transition: var(--transition-smooth);
+    }
+    .blog-card:hover .card-header h2 {
+      color: var(--color-gold);
+    }
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .card-footer-btn {
+      color: var(--color-gold);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+  </style>
+  <!-- Google AdSense Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3114463937796990" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles-js"></div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"></span>
+        AETHERIUS
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">기억 복원</a></li>
+          <li><a href="blog.html" class="active">블로그</a></li>
+          <li><a href="about.html">소개</a></li>
+          <li><a href="contact.html">문의</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <button class="icon-btn" id="music-toggle-btn">🔇 사운드 끔</button>
+        <button class="icon-btn" id="open-modal-btn">⚙️ API 키 입력</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="blog-layout">
+      
+      <div class="blog-title-area">
+        <h1>기억 보관소 블로그</h1>
+        <p>상실의 시대에 띄우는 작은 온기와 유용한 기록들의 아카이브</p>
+      </div>
+
+      <!-- Top Ad Slot -->
+      <div class="adsense-slot">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3114463937796990"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <div class="blog-grid">
+        <!-- Post 1 -->
+        <a href="today-house-reviews.html" class="blog-card">
+          <div>
+            <div class="card-meta">2026년 6월 2일 &bull; 내돈내산 리뷰</div>
+            <div class="card-header">
+              <h2>🏠 오늘의집 탈탈 털어 완성한 내방 꾸미기! 실제 가구 구매 후기</h2>
+            </div>
+            <p class="card-desc">
+              예산 200만원으로 침대, 원목식탁, 이불세트, 가죽의자, 시스템 행거를 모두 해결한 솔직 담백 내돈내산 가성비 인테리어 정산표와 디테일 후기입니다.
+            </p>
+          </div>
+          <div class="card-footer-btn">자세히 읽기 &rarr;</div>
+        </a>
+
+        <!-- Post 2 -->
+        <a href="digital-relics-philosophy.html" class="blog-card">
+          <div>
+            <div class="card-meta">2026년 5월 29일 &bull; 인문 에세이</div>
+            <div class="card-header">
+              <h2>❊ 디지털 유품과 인공지능 추모: 에테리우스의 철학</h2>
+            </div>
+            <p class="card-desc">
+              우리는 죽어서 어떤 디지털 흔적을 남기게 될까요? 스마트폰 속 잊혀진 온기를 복원하고 남겨진 자들에게 시적인 위로를 건네는 프로젝트의 탄생 배경과 가치를 탐색합니다.
+            </p>
+          </div>
+          <div class="card-footer-btn">자세히 읽기 &rarr;</div>
+        </a>
+      </div>
+
+      <!-- Bottom Ad Slot -->
+      <div class="adsense-slot">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3114463937796990"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo" style="padding: 0;">
+            <span class="logo-icon"></span>
+            AETHERIUS
+          </a>
+          <p>에테리우스는 떠난 이들의 남겨진 흔적을 기억하고, 남겨진 이들에게 온기 가득한 위로를 전하는 감성 디지털 유품 추모 공간입니다.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>기억 공간</h4>
+            <ul>
+              <li><a href="index.html">기억 복원기</a></li>
+              <li><a href="blog.html">블로그 / 리뷰</a></li>
+              <li><a href="about.html">프로젝트 소개</a></li>
+              <li><a href="contact.html">문의하기</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>약관 및 정책</h4>
+            <ul>
+              <li><a href="privacy.html">개인정보처리방침</a></li>
+              <li><a href="terms.html">이용약관</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aetherius. All rights reserved.</p>
+        <p style="font-size: 0.75rem; opacity: 0.75;">본 사이트(nomad-schedule.pages.dev)는 노마드 스케줄 플랫폼의 감성 프로젝트 Aetherius를 제공하며, Google AdSense 정책을 완벽히 준수합니다.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk_v2/kakao.min.js" integrity="sha384-ImC5cnguo5+5sjr0wyPf0Kc35Yh2fCjupB5x8DSV5cYYQSxyK4f721G4pTIa6fpx" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>
